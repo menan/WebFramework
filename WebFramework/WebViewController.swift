@@ -13,6 +13,7 @@ class WebViewController: UIViewController {
 
     var webView: WKWebView?
     let userContentController = WKUserContentController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,6 +30,7 @@ class WebViewController: UIViewController {
         
         
         self.view = self.webView
+        
         
 //        webView.uiDelegate = self
 //        webView.navigationDelegate = self
@@ -87,7 +89,7 @@ class WebViewController: UIViewController {
         }
         
         if vc.navigationItem.leftBarButtonItem == nil {
-            let menu = UIBarButtonItem(image: UIImage(named: "menu-icon"), style: .plain, target: self, action: #selector(sidebarToggled))
+            let menu = UIBarButtonItem(image: UIImage(named: "menu-thin"), style: .plain, target: self, action: #selector(sidebarToggled))
             vc.navigationItem.leftBarButtonItem  = menu
         }
         else {
@@ -95,7 +97,13 @@ class WebViewController: UIViewController {
         }
     }
     
+    func setNavBarBackground() {
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "UINavigationBarBackground.png"),
+                                                                    for: .default)
+    }
+    
     @objc func sidebarToggled() {
+        
         
     }
 
