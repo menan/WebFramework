@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Test Page</title>
+  <meta
+  name='viewport'
+  content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
+  />
+  <style>
+  
+  .button{
+      width: 90%;
+      text-align: center;
+      padding: 10px;
+      text-decoration: none;
+      margin: auto;
+      display: block;
+      color: white;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      font-weight: 500;
+      font-size: 17px;
+      background-color: rgba(0,122,255, 1);
+      -webkit-tap-highlight-color:  rgba(0, 118, 216, 1);
+      
+  }
+  .input {
+      display: block;
+      width: 90%;
+      text-align: center;
+      padding: 8px 10px;
+      border-top-width: 0px;
+      border-right-width: 0px;
+      border-left-width: 0px;
+      border-bottom-width: 2px;
+      border-bottom-color: rgba(0,122,255, 1);
+      margin: auto;
+      border-radius: 2px;
+      margin-bottom: 10px;
+      margin-top: 5px;
+      font-size: 17px;
+      -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+      -webkit-appearance: none;
+      
+      -webkit-touch-callout: auto;
+      -webkit-user-select: auto;
+  }
+  body {
+      margin-top: 10px;
+      font-family: Arial;
+  }
+  </style>
+  <script>
+  
+    function printHelloWorld() {
+      window.webkit.messageHandlers.test.postMessage("Hello, world!");
+    }
+  
+  function pushToNext() {
+      window.webkit.messageHandlers.pushToNext.postMessage("Hello, world!");
+  }
+  function present() {
+      window.webkit.messageHandlers.present.postMessage("Hello, world!");
+  }
+  function dismiss() {
+      window.webkit.messageHandlers.dismiss.postMessage("Hello, world!");
+  }
+  
+  function setTitle() {
+      var title = document.getElementById("title");
+      window.webkit.messageHandlers.setTitle.postMessage(title.value);
+  }
+    window.onload = printHelloWorld;
+  </script>
+</head>
+<body>
+  <div onclick="pushToNext()" class="button">Push View Controller</div>
+  <div onclick="present()" class="button">Present Modally</div>
+  <div onclick="dismiss()" class="button">Dismiss</div>
+  
+  <br /><br /><br />
+  <input type="text" placeholder="Your Title" id="title" class="input"/>
+  <div onclick="setTitle()" class="button">Update Title</div>
+</body>
+</html>

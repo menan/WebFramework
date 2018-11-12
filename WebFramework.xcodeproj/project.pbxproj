@@ -15,6 +15,8 @@
 		685F6FEF219921BB00909B9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 685F6FED219921BB00909B9D /* LaunchScreen.storyboard */; };
 		685F6FFA219921BB00909B9D /* WebFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685F6FF9219921BB00909B9D /* WebFrameworkTests.swift */; };
 		685F7005219921BB00909B9D /* WebFrameworkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685F7004219921BB00909B9D /* WebFrameworkUITests.swift */; };
+		685F70132199229700909B9D /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685F70122199229700909B9D /* WebViewController.swift */; };
+		685F7018219943F400909B9D /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 685F7017219943F400909B9D /* index.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		685F7000219921BB00909B9D /* WebFrameworkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebFrameworkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		685F7004219921BB00909B9D /* WebFrameworkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebFrameworkUITests.swift; sourceTree = "<group>"; };
 		685F7006219921BB00909B9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		685F70122199229700909B9D /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		685F7017219943F400909B9D /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,7 @@
 		685F6FE1219921B900909B9D /* WebFramework */ = {
 			isa = PBXGroup;
 			children = (
+				685F7016219943B700909B9D /* website */,
 				685F6FE2219921B900909B9D /* AppDelegate.swift */,
 				685F6FE4219921B900909B9D /* MasterViewController.swift */,
 				685F6FE6219921B900909B9D /* DetailViewController.swift */,
@@ -106,6 +111,7 @@
 				685F6FEB219921BB00909B9D /* Assets.xcassets */,
 				685F6FED219921BB00909B9D /* LaunchScreen.storyboard */,
 				685F6FF0219921BB00909B9D /* Info.plist */,
+				685F70122199229700909B9D /* WebViewController.swift */,
 			);
 			path = WebFramework;
 			sourceTree = "<group>";
@@ -126,6 +132,14 @@
 				685F7006219921BB00909B9D /* Info.plist */,
 			);
 			path = WebFrameworkUITests;
+			sourceTree = "<group>";
+		};
+		685F7016219943B700909B9D /* website */ = {
+			isa = PBXGroup;
+			children = (
+				685F7017219943F400909B9D /* index.html */,
+			);
+			path = website;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				685F6FEF219921BB00909B9D /* LaunchScreen.storyboard in Resources */,
+				685F7018219943F400909B9D /* index.html in Resources */,
 				685F6FEC219921BB00909B9D /* Assets.xcassets in Resources */,
 				685F6FEA219921B900909B9D /* Main.storyboard in Resources */,
 			);
@@ -262,6 +277,7 @@
 				685F6FE7219921B900909B9D /* DetailViewController.swift in Sources */,
 				685F6FE5219921B900909B9D /* MasterViewController.swift in Sources */,
 				685F6FE3219921B900909B9D /* AppDelegate.swift in Sources */,
+				685F70132199229700909B9D /* WebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
