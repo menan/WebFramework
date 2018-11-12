@@ -72,6 +72,10 @@
       var title = document.getElementById("title");
       window.webkit.messageHandlers.setTitle.postMessage(title.value);
   }
+  
+  function toggleSidebar() {
+      window.webkit.messageHandlers.toggleSidebar.postMessage("Hello, world!");
+  }
     window.onload = printHelloWorld;
   </script>
 </head>
@@ -79,6 +83,7 @@
   <div onclick="pushToNext()" class="button">Push View Controller</div>
   <div onclick="present()" class="button">Present Modally</div>
   <div onclick="dismiss()" class="button">Dismiss</div>
+  <div onclick="toggleSidebar()" class="button">Toggle Sidebar</div>
   
   <br /><br /><br />
   <input type="text" placeholder="Your Title" id="title" class="input"/>
