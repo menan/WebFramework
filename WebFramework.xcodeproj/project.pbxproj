@@ -8,15 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		685F6FE3219921B900909B9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685F6FE2219921B900909B9D /* AppDelegate.swift */; };
-		685F6FE5219921B900909B9D /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685F6FE4219921B900909B9D /* MasterViewController.swift */; };
-		685F6FE7219921B900909B9D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685F6FE6219921B900909B9D /* DetailViewController.swift */; };
-		685F6FEA219921B900909B9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 685F6FE8219921B900909B9D /* Main.storyboard */; };
 		685F6FEC219921BB00909B9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 685F6FEB219921BB00909B9D /* Assets.xcassets */; };
 		685F6FEF219921BB00909B9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 685F6FED219921BB00909B9D /* LaunchScreen.storyboard */; };
 		685F6FFA219921BB00909B9D /* WebFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685F6FF9219921BB00909B9D /* WebFrameworkTests.swift */; };
 		685F7005219921BB00909B9D /* WebFrameworkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685F7004219921BB00909B9D /* WebFrameworkUITests.swift */; };
 		685F70132199229700909B9D /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685F70122199229700909B9D /* WebViewController.swift */; };
 		685F7018219943F400909B9D /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 685F7017219943F400909B9D /* index.html */; };
+		FED7FD02219A0062002E9B17 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7FD01219A0062002E9B17 /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,9 +37,6 @@
 /* Begin PBXFileReference section */
 		685F6FDF219921B900909B9D /* WebFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		685F6FE2219921B900909B9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		685F6FE4219921B900909B9D /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		685F6FE6219921B900909B9D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		685F6FE9219921B900909B9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		685F6FEB219921BB00909B9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		685F6FEE219921BB00909B9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		685F6FF0219921BB00909B9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,6 +48,9 @@
 		685F7006219921BB00909B9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		685F70122199229700909B9D /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		685F7017219943F400909B9D /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		FED7FD01219A0062002E9B17 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		FED7FD04219A135C002E9B17 /* SideMenu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SideMenu.framework; path = Carthage/Build/iOS/SideMenu.framework; sourceTree = "<group>"; };
+		FED7FD1B219A359A002E9B17 /* SideMenuController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SideMenuController.framework; path = Carthage/Build/iOS/SideMenuController.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +85,7 @@
 				685F6FF8219921BB00909B9D /* WebFrameworkTests */,
 				685F7003219921BB00909B9D /* WebFrameworkUITests */,
 				685F6FE0219921B900909B9D /* Products */,
+				FED7FD03219A135C002E9B17 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,14 +103,12 @@
 			isa = PBXGroup;
 			children = (
 				685F7016219943B700909B9D /* website */,
-				685F6FE2219921B900909B9D /* AppDelegate.swift */,
-				685F6FE4219921B900909B9D /* MasterViewController.swift */,
-				685F6FE6219921B900909B9D /* DetailViewController.swift */,
-				685F6FE8219921B900909B9D /* Main.storyboard */,
 				685F6FEB219921BB00909B9D /* Assets.xcassets */,
 				685F6FED219921BB00909B9D /* LaunchScreen.storyboard */,
 				685F6FF0219921BB00909B9D /* Info.plist */,
+				685F6FE2219921B900909B9D /* AppDelegate.swift */,
 				685F70122199229700909B9D /* WebViewController.swift */,
+				FED7FD01219A0062002E9B17 /* TabBarViewController.swift */,
 			);
 			path = WebFramework;
 			sourceTree = "<group>";
@@ -142,6 +139,15 @@
 			path = website;
 			sourceTree = "<group>";
 		};
+		FED7FD03219A135C002E9B17 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FED7FD1B219A359A002E9B17 /* SideMenuController.framework */,
+				FED7FD04219A135C002E9B17 /* SideMenu.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -152,6 +158,7 @@
 				685F6FDB219921B900909B9D /* Sources */,
 				685F6FDC219921B900909B9D /* Frameworks */,
 				685F6FDD219921B900909B9D /* Resources */,
+				FED7FD06219A13EC002E9B17 /* Carthage Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -249,7 +256,6 @@
 				685F6FEF219921BB00909B9D /* LaunchScreen.storyboard in Resources */,
 				685F7018219943F400909B9D /* index.html in Resources */,
 				685F6FEC219921BB00909B9D /* Assets.xcassets in Resources */,
-				685F6FEA219921B900909B9D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,14 +275,34 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		FED7FD06219A13EC002E9B17 /* Carthage Copy Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Carthage Copy Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		685F6FDB219921B900909B9D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				685F6FE7219921B900909B9D /* DetailViewController.swift in Sources */,
-				685F6FE5219921B900909B9D /* MasterViewController.swift in Sources */,
 				685F6FE3219921B900909B9D /* AppDelegate.swift in Sources */,
+				FED7FD02219A0062002E9B17 /* TabBarViewController.swift in Sources */,
 				685F70132199229700909B9D /* WebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,14 +339,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		685F6FE8219921B900909B9D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				685F6FE9219921B900909B9D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		685F6FED219921BB00909B9D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -454,6 +472,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P7DAG38SF9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = WebFramework/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -472,6 +494,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P7DAG38SF9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = WebFramework/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -13,6 +13,7 @@ class WebViewController: UIViewController {
 
     var webView: WKWebView?
     let userContentController = WKUserContentController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,9 +26,11 @@ class WebViewController: UIViewController {
         userContentController.add(self, name: "dismiss")
         userContentController.add(self, name: "present")
         userContentController.add(self, name: "setTitle")
+        userContentController.add(self, name: "toggleSidebar")
         
         
         self.view = self.webView
+        
         
 //        webView.uiDelegate = self
 //        webView.navigationDelegate = self
@@ -61,6 +64,48 @@ class WebViewController: UIViewController {
             print("Its done.")
         }
     }
+    
+    func setTitle(title: String) {
+        
+        var vc: UIViewController!
+        if parent is TabBarViewController {
+            vc = parent
+        }
+        else {
+            vc = self
+        }
+        vc.title = title
+    }
+    
+    
+    func toggleSidebar() {
+        //show or hide left bar button item
+        var vc: UIViewController!
+        if parent is TabBarViewController {
+            vc = parent
+        }
+        else {
+            vc = self
+        }
+        
+        if vc.navigationItem.leftBarButtonItem == nil {
+            let menu = UIBarButtonItem(image: UIImage(named: "menu-thin"), style: .plain, target: self, action: #selector(sidebarToggled))
+            vc.navigationItem.leftBarButtonItem  = menu
+        }
+        else {
+            vc.navigationItem.leftBarButtonItem = nil
+        }
+    }
+    
+    func setNavBarBackground() {
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "UINavigationBarBackground.png"),
+                                                                    for: .default)
+    }
+    
+    @objc func sidebarToggled() {
+        
+        
+    }
 
 }
 
@@ -83,7 +128,11 @@ extension WebViewController: WKScriptMessageHandler {
             print("Presenting: \(messageBody)")
         }
         else if message.name == "setTitle", let messageBody = message.body as? String {
-            self.title = messageBody
+            setTitle(title: messageBody)
+        }
+        else if message.name == "toggleSidebar", let messageBody = message.body as? String {
+            toggleSidebar()
+            print("Toggling side bar: \(messageBody)")
         }
     }
 }
