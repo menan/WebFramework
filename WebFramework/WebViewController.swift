@@ -11,7 +11,7 @@ import WebKit
 
 class WebViewController: UIViewController {
 
-    var webView: WKWebView?
+    var webView: WKWebView!
     let userContentController = WKUserContentController()
     
     override func viewDidLoad() {
@@ -23,11 +23,17 @@ class WebViewController: UIViewController {
         
         self.webView = WKWebView(frame: self.view.bounds, configuration: config)
         userContentController.add(self, name: "pushToNext")
-        userContentController.add(self, name: "dismiss")
-        userContentController.add(self, name: "present")
-        userContentController.add(self, name: "setTitle")
-        userContentController.add(self, name: "toggleSidebar")
+        userContentController.add(self, name: "dismissView")
+        userContentController.add(self, name: "presentView")
+        userContentController.add(self, name: "setNavTitle")
+        userContentController.add(self, name: "toggleNavBar")
+        userContentController.add(self, name: "setNavBarBackground")
+        userContentController.add(self, name: "setTabBarTint")
+        userContentController.add(self, name: "setTitleFont")
+        userContentController.add(self, name: "toggleScrolling")
         
+        
+        setNavTitle("WebFramework")
         
         self.view = self.webView
         
@@ -36,36 +42,36 @@ class WebViewController: UIViewController {
 //        webView.navigationDelegate = self
         
         
-        webView?.scrollView.isScrollEnabled = false
+        webView.scrollView.isScrollEnabled = false
         
         
         let url = Bundle.main.url(forResource: "index", withExtension: "html")!
-        webView?.loadFileURL(url, allowingReadAccessTo: url)
+        webView.loadFileURL(url, allowingReadAccessTo: url)
         let request = URLRequest(url: url)
-        webView?.load(request)
+        webView.load(request)
     }
     
-    func pushToNext() {
+    @objc func pushToNext(_ message: Any) {
         
         let viewController = WebViewController()
         
         self.navigationController?.pushViewController(viewController, animated: true)
     }
-    func presentView() {
+    @objc func presentView(_ message:  Any) {
         
-        let viewController = WebViewController()
+        let viewController = UINavigationController(rootViewController: WebViewController())
         
         self.present(viewController, animated: true) {
             print("Its done.")
         }
     }
-    func dismissView() {
+    @objc func dismissView(_ message:  Any) {
         self.dismiss(animated: true) {
             print("Its done.")
         }
     }
     
-    func setTitle(title: String) {
+    @objc func setNavTitle(_ message: Any) {
         
         var vc: UIViewController!
         if parent is TabBarViewController {
@@ -74,11 +80,32 @@ class WebViewController: UIViewController {
         else {
             vc = self
         }
-        vc.title = title
+        vc.title = message as? String
+        
+//        vc.navigationController?.navigationBar.prefersLargeTitles = true
+
+    }
+    
+    @objc func setTitleFont(_ message: Any) {
+        
+    }
+    @objc func toggleNavBar(_ message: Any) {
+        guard let navController = self.navigationController else { return }
+        
+        if navController.isNavigationBarHidden {
+            navController.setNavigationBarHidden(false, animated: true)
+        }
+        else {
+            navController.setNavigationBarHidden(true, animated: true)
+        }
     }
     
     
-    func toggleSidebar() {
+    @objc func toggleScrolling(_ message: Any) {
+        webView.scrollView.isScrollEnabled = !webView.scrollView.isScrollEnabled
+    }
+    
+    @objc func toggleSidebar(_ message: Any) {
         //show or hide left bar button item
         var vc: UIViewController!
         if parent is TabBarViewController {
@@ -97,42 +124,78 @@ class WebViewController: UIViewController {
         }
     }
     
-    func setNavBarBackground() {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "UINavigationBarBackground.png"),
-                                                                    for: .default)
+    @objc func setNavBarBackground(_ message: Any) {
+        self.navigationController?.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "canada-150-cover"), for: .default)
     }
     
-    @objc func sidebarToggled() {
+    @objc func setTabBarTint(_ message: Any) {
+        if let color = message as? String {
+            self.tabBarController?.tabBar.tintColor = hexStringToUIColor(hex: color)
+        }
+    }
+    
+    @objc func sidebarToggled(_ message: Any) {
         
         
     }
-
+    
+    func hexStringToUIColor (hex:String) -> UIColor {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+        
+        if ((cString.count) != 6) {
+            return UIColor.gray
+        }
+        
+        var rgbValue:UInt32 = 0
+        Scanner(string: cString).scanHexInt32(&rgbValue)
+        
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
 }
 
 
 extension WebViewController: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if message.name == "test", let messageBody = message.body as? String {
-            print(messageBody)
-        }
-        else if message.name == "pushToNext", let messageBody = message.body as? String {
-            pushToNext()
-            print("Pushing: \(messageBody)")
-        }
-        else if message.name == "dismiss", let messageBody = message.body as? String {
-            dismissView()
-            print("Dimissing: \(messageBody)")
-        }
-        else if message.name == "present", let messageBody = message.body as? String {
-            presentView()
-            print("Presenting: \(messageBody)")
-        }
-        else if message.name == "setTitle", let messageBody = message.body as? String {
-            setTitle(title: messageBody)
-        }
-        else if message.name == "toggleSidebar", let messageBody = message.body as? String {
-            toggleSidebar()
-            print("Toggling side bar: \(messageBody)")
+        print("Executing: \(message.name)")
+        switch message.name {
+        case "pushToNext":
+            pushToNext(message.body)
+            break
+        case "dismissView":
+            dismissView(message.body)
+            break
+        case "presentView":
+            presentView(message.body)
+            break
+        case "setNavTitle":
+            setNavTitle(message.body)
+            break
+        case "toggleNavBar":
+            toggleNavBar(message.body)
+            break
+        case "setNavBarBackground":
+            setNavBarBackground(message.body)
+            break
+        case "setTabBarTint":
+            setTabBarTint(message.body)
+            break
+        case "setTitleFont":
+            setTitleFont(message.body)
+            break
+        case "toggleScrolling":
+            toggleScrolling(message.body)
+            break
+        default:
+            pushToNext(message.body)
         }
     }
 }

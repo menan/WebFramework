@@ -10,11 +10,17 @@
   />
   <style>
       * {
-          -webkit-touch-callout: auto;
-          -webkit-user-select: auto;
+          
+          -webkit-touch-callout: none; /* iOS Safari */
+          -webkit-user-select: none; /* Safari */
+          -khtml-user-select: none; /* Konqueror HTML */
+          -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                              supported by Chrome and Opera */
       }
   .button{
-      width: 90%;
+      width: 85%;
       text-align: center;
       padding: 10px;
       text-decoration: none;
@@ -25,20 +31,20 @@
       margin-bottom: 10px;
       font-weight: 500;
       font-size: 17px;
-      background-color: rgba(0,122,255, 1);
+      background-color: #ff2d55;
       -webkit-tap-highlight-color:  rgba(0, 118, 216, 0);
       
   }
   .input {
       display: block;
-      width: 90%;
+      width: 85%;
       text-align: center;
       padding: 8px 10px;
       border-top-width: 0px;
       border-right-width: 0px;
       border-left-width: 0px;
       border-bottom-width: 2px;
-      border-bottom-color: rgba(0,122,255, 1);
+      border-bottom-color: #ff2d55;
       margin: auto;
       border-radius: 2px;
       margin-bottom: 10px;
@@ -51,7 +57,7 @@
       -webkit-user-select: auto;
   }
   body {
-      margin-top: 10px;
+      margin-top: 20px;
       font-family: Arial;
   }
   </style>
@@ -64,31 +70,43 @@
   function pushToNext() {
       window.webkit.messageHandlers.pushToNext.postMessage("Hello, world!");
   }
-  function present() {
-      window.webkit.messageHandlers.present.postMessage("Hello, world!");
+  function presentView() {
+      window.webkit.messageHandlers.presentView.postMessage("Hello, world!");
   }
-  function dismiss() {
-      window.webkit.messageHandlers.dismiss.postMessage("Hello, world!");
+  function dismissView() {
+      window.webkit.messageHandlers.dismissView.postMessage("Hello, world!");
   }
   
   function setTitle() {
       var title = document.getElementById("title");
-      window.webkit.messageHandlers.setTitle.postMessage(title.value);
+      window.webkit.messageHandlers.setNavTitle.postMessage(title.value);
   }
   
-  function toggleSidebar() {
-      window.webkit.messageHandlers.toggleSidebar.postMessage("Hello, world!");
+  function setNavBarBackground() {
+      window.webkit.messageHandlers.setNavBarBackground.postMessage("Hello");
   }
-    window.onload = printHelloWorld;
+  function setTabBarTint() {
+      window.webkit.messageHandlers.setTabBarTint.postMessage("#ff2d55");
+  }
+  function toggleNavBar() {
+      window.webkit.messageHandlers.toggleNavBar.postMessage("Hello, world!");
+  }
+  function toggleScrolling() {
+      window.webkit.messageHandlers.toggleScrolling.postMessage("Hello, world!");
+  }
+  window.onload = setTabBarTint("#ff2d55");
   </script>
 </head>
 <body>
   <div onclick="pushToNext()" class="button">Push View Controller</div>
-  <div onclick="present()" class="button">Present Modally</div>
-  <div onclick="dismiss()" class="button">Dismiss</div>
-  <div onclick="toggleSidebar()" class="button">Toggle Sidebar</div>
+  <div onclick="presentView()" class="button">Present View Modally</div>
+  <div onclick="dismissView()" class="button">Dismiss View</div>
+  <div onclick="setNavBarBackground()" class="button">Change Navbar Background</div>
+  <div onclick="setTabBarTint()" class="button">Change Tabbar Tint</div>
+  <div onclick="toggleNavBar()" class="button">Toggle Nav Bar</div>
+  <div onclick="toggleScrolling()" class="button">Toggle Scrolling</div>
   
-  <br /><br /><br />
+  <br /><br />
   <input type="text" placeholder="Your Title" id="title" class="input"/>
   <div onclick="setTitle()" class="button">Update Title</div>
 </body>
