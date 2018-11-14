@@ -14,6 +14,22 @@ class WebViewController: UIViewController {
     var webView: WKWebView!
     let userContentController = WKUserContentController()
     
+    var path = ""
+    
+    convenience init() {
+        self.init(with: WKWebView())
+    }
+    
+    init(with webView: WKWebView, and path: String = "") {
+        self.webView = webView
+        self.path = path
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,7 +60,7 @@ class WebViewController: UIViewController {
         
         webView.scrollView.isScrollEnabled = false
         
-        
+        print("Loading: index.html#!\(path)")
         let url = Bundle.main.url(forResource: "index", withExtension: "html")!
         webView.loadFileURL(url, allowingReadAccessTo: url)
         let request = URLRequest(url: url)
@@ -53,13 +69,17 @@ class WebViewController: UIViewController {
     
     @objc func pushToNext(_ message: Any) {
         
-        let viewController = WebViewController()
+//        if let path = message as? String {
+//
+//        }
+        
+        let viewController = WebViewController(with: webView, and: message as? String ?? "")
         
         self.navigationController?.pushViewController(viewController, animated: true)
     }
     @objc func presentView(_ message:  Any) {
         
-        let viewController = UINavigationController(rootViewController: WebViewController())
+        let viewController = UINavigationController(rootViewController: WebViewController(with: webView))
         
         self.present(viewController, animated: true) {
             print("Its done.")
@@ -86,9 +106,30 @@ class WebViewController: UIViewController {
 
     }
     
+    func fontsURLs() -> [URL] {
+        let bundle = Bundle(identifier: "com.owl-home-inc.WebFramework")!
+        let fileNames = ["Oswald-Medium"]
+        return fileNames.map({ bundle.url(forResource: $0, withExtension: "ttf")! })
+    }
+    
     @objc func setTitleFont(_ message: Any) {
         
+        do {
+            try fontsURLs().forEach({ try UIFont.register(from: $0) })
+        } catch {
+            print(error)
+        }
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Oswald-Medium", size: 21)!]
     }
+    
+    @objc func setTitleColor(_ message: Any) {
+        if let color = message as? String {
+            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: hexStringToUIColor(hex: color)]
+        }
+    }
+    
+    
     @objc func toggleNavBar(_ message: Any) {
         guard let navController = self.navigationController else { return }
         
@@ -199,3 +240,20 @@ extension WebViewController: WKScriptMessageHandler {
         }
     }
 }
+
+
+public extension UIFont {
+    public static func register(from url: URL) throws {
+        guard let fontDataProvider = CGDataProvider(url: url as CFURL) else {
+            return
+//            throw SVError.internal("Could not create font data provider for \(url).")
+        }
+        guard let font = CGFont(fontDataProvider) else { return }
+        var error: Unmanaged<CFError>?
+        guard CTFontManagerRegisterGraphicsFont(font, &error) else {
+            throw error!.takeUnretainedValue()
+        }
+    }
+}
+
+

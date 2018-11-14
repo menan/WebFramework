@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -61,14 +61,18 @@
       font-family: Arial;
   }
   </style>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+
   <script>
   
     function printHelloWorld() {
       window.webkit.messageHandlers.test.postMessage("Hello, world!");
     }
   
-  function pushToNext() {
-      window.webkit.messageHandlers.pushToNext.postMessage("Hello, world!");
+  function pushToNext(path) {
+      window.webkit.messageHandlers.pushToNext.postMessage(path);
   }
   function presentView() {
       window.webkit.messageHandlers.presentView.postMessage("Hello, world!");
@@ -80,6 +84,11 @@
   function setTitle() {
       var title = document.getElementById("title");
       window.webkit.messageHandlers.setNavTitle.postMessage(title.value);
+  }
+  
+  function setTitleFont() {
+      var title = document.getElementById("title");
+      window.webkit.messageHandlers.setTitleFont.postMessage(title.value);
   }
   
   function setNavBarBackground() {
@@ -94,20 +103,45 @@
   function toggleScrolling() {
       window.webkit.messageHandlers.toggleScrolling.postMessage("Hello, world!");
   }
+  function toggleNavBarButton() {
+      window.webkit.messageHandlers.toggleNavBarButton.postMessage("Hello, world!");
+  }
   window.onload = setTabBarTint("#ff2d55");
+  
+  var app = angular.module("myApp", ["ngRoute"]);
+  
+  app.config(function($routeProvider) {
+             $routeProvider
+             .when("/", {
+                   template : "<h1>Main</h1><p>Click on the links to change this content</p>"
+                   })
+             .when("/banana", {
+                   template : "<h1>Banana</h1><p>Bananas contain around 75% water.</p>"
+                   })
+             .when("/tomato", {
+                   template : "<h1>Tomato</h1><p>Tomatoes contain around 95% water.</p>"
+                   });
+             });
+             
+             
   </script>
 </head>
 <body>
-  <div onclick="pushToNext()" class="button">Push View Controller</div>
-  <div onclick="presentView()" class="button">Present View Modally</div>
-  <div onclick="dismissView()" class="button">Dismiss View</div>
-  <div onclick="setNavBarBackground()" class="button">Change Navbar Background</div>
-  <div onclick="setTabBarTint()" class="button">Change Tabbar Tint</div>
-  <div onclick="toggleNavBar()" class="button">Toggle Nav Bar</div>
-  <div onclick="toggleScrolling()" class="button">Toggle Scrolling</div>
+    <h1>Hello {{yourName}}!</h1>
+    <hr>
+    <div ng-view></div>
+    <div onclick="pushToNext()" class="button">Push View Controller</div>
+    <div onclick="presentView('/banana')" class="button">Present View Modally</div>
+    <div onclick="dismissView()" class="button">Dismiss View</div>
+    <div onclick="setNavBarBackground()" class="button">Change Navbar Background</div>
+    <div onclick="toggleNavBarButton()" class="button">Toggle Navbar Button</div>
+    <div onclick="setTabBarTint()" class="button">Change Tabbar Tint</div>
+    <div onclick="toggleNavBar()" class="button">Toggle Nav Bar</div>
+    <div onclick="toggleScrolling()" class="button">Toggle Scrolling</div>
+    <div onclick="setTitleFont()" class="button">Set Title Font</div>
   
-  <br /><br />
-  <input type="text" placeholder="Your Title" id="title" class="input"/>
-  <div onclick="setTitle()" class="button">Update Title</div>
+    <br /><br />
+    <input type="text" placeholder="Your Title" id="title" class="input" ng-model="yourName" />
+    <div onclick="setTitle()" class="button">Update Title</div>
 </body>
 </html>
