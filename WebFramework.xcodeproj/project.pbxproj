@@ -31,6 +31,7 @@
 		68F08546219BD99600254498 /* Oswald-Demi-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68F08537219BD99600254498 /* Oswald-Demi-BoldItalic.ttf */; };
 		68F08547219BD99600254498 /* Oswald-DemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68F08538219BD99600254498 /* Oswald-DemiBold.ttf */; };
 		FED7FD02219A0062002E9B17 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7FD01219A0062002E9B17 /* TabBarViewController.swift */; };
+		FED7FD24219CD08C002E9B17 /* Image-1.png in Resources */ = {isa = PBXBuildFile; fileRef = FED7FD23219CD08C002E9B17 /* Image-1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		FED7FD01219A0062002E9B17 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		FED7FD04219A135C002E9B17 /* SideMenu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SideMenu.framework; path = Carthage/Build/iOS/SideMenu.framework; sourceTree = "<group>"; };
 		FED7FD1B219A359A002E9B17 /* SideMenuController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SideMenuController.framework; path = Carthage/Build/iOS/SideMenuController.framework; sourceTree = "<group>"; };
+		FED7FD23219CD08C002E9B17 /* Image-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Image-1.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,8 +136,8 @@
 		685F6FE1219921B900909B9D /* WebFramework */ = {
 			isa = PBXGroup;
 			children = (
-				68F08529219BD97800254498 /* Fonts */,
-				685F7016219943B700909B9D /* website */,
+				FED7FD20219CCD59002E9B17 /* Images */,
+				685F7016219943B700909B9D /* App */,
 				685F6FEB219921BB00909B9D /* Assets.xcassets */,
 				685F6FED219921BB00909B9D /* LaunchScreen.storyboard */,
 				685F6FF0219921BB00909B9D /* Info.plist */,
@@ -165,12 +167,13 @@
 			path = WebFrameworkUITests;
 			sourceTree = "<group>";
 		};
-		685F7016219943B700909B9D /* website */ = {
+		685F7016219943B700909B9D /* App */ = {
 			isa = PBXGroup;
 			children = (
+				68F08529219BD97800254498 /* Fonts */,
 				685F7017219943F400909B9D /* index.html */,
 			);
-			path = website;
+			path = App;
 			sourceTree = "<group>";
 		};
 		68F08529219BD97800254498 /* Fonts */ = {
@@ -193,6 +196,7 @@
 				68F08533219BD99500254498 /* Oswald-Stencil.ttf */,
 			);
 			name = Fonts;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		FED7FD03219A135C002E9B17 /* Frameworks */ = {
@@ -202,6 +206,14 @@
 				FED7FD04219A135C002E9B17 /* SideMenu.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FED7FD20219CCD59002E9B17 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				FED7FD23219CD08C002E9B17 /* Image-1.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,6 +335,7 @@
 				68F0853A219BD99600254498 /* Oswald-RegularItalic.ttf in Resources */,
 				68F08543219BD99600254498 /* Oswald-ExtraLight.ttf in Resources */,
 				68F08544219BD99600254498 /* Oswald-Bold.ttf in Resources */,
+				FED7FD24219CD08C002E9B17 /* Image-1.png in Resources */,
 				685F6FEC219921BB00909B9D /* Assets.xcassets in Resources */,
 				68F0853C219BD99600254498 /* Oswald-LightItalic.ttf in Resources */,
 				68F08545219BD99600254498 /* Oswald-Extra-LightItalic.ttf in Resources */,

@@ -68,11 +68,6 @@ class WebViewController: UIViewController {
     }
     
     @objc func pushToNext(_ message: Any) {
-        
-//        if let path = message as? String {
-//
-//        }
-        
         let viewController = WebViewController(with: webView, and: message as? String ?? "")
         
         self.navigationController?.pushViewController(viewController, animated: true)
@@ -106,21 +101,21 @@ class WebViewController: UIViewController {
 
     }
     
-    func fontsURLs() -> [URL] {
-        let bundle = Bundle(identifier: "com.owl-home-inc.WebFramework")!
-        let fileNames = ["Oswald-Medium"]
-        return fileNames.map({ bundle.url(forResource: $0, withExtension: "ttf")! })
-    }
-    
     @objc func setTitleFont(_ message: Any) {
         
-        do {
-            try fontsURLs().forEach({ try UIFont.register(from: $0) })
-        } catch {
-            print(error)
+        if let fontData = message as? [String: Any],
+            let fontName = fontData["fontName"] as? String,
+            let fontSize = fontData["fontSize"] as? Float,
+            let bundle = Bundle(identifier: "com.owl-home-inc.WebFramework"),
+            let url = bundle.url(forResource:fontName, withExtension: "ttf") {
+            do {
+                try UIFont.register(from: url)
+                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: fontName, size: CGFloat(fontSize))!]
+            } catch {
+                print(error)
+            }
         }
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Oswald-Medium", size: 21)!]
     }
     
     @objc func setTitleColor(_ message: Any) {
@@ -166,7 +161,46 @@ class WebViewController: UIViewController {
     }
     
     @objc func setNavBarBackground(_ message: Any) {
-        self.navigationController?.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "canada-150-cover"), for: .default)
+//        if let imageName = message as? String {
+//            if let image = UIImage(named: "Image-1") {
+//                self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+//            }
+//            else {
+//                print("Image not found: \(message)")
+//            }
+//        }
+//        else {
+//            print("Invalid image path.")
+//        }
+//
+//        let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
+//        let userDomainMask    = FileManager.SearchPathDomainMask.userDomainMask
+//        let paths             = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
+//        if let dirPath        = paths.first
+//        {
+//            let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent("Image-1.png")
+//            if let image    = UIImage(contentsOfFile: imageURL.path) {
+//                self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+//            }
+//            else {
+//                print("Image not found.")
+//            }
+//            // Do whatever you want with the image
+//        }
+        
+        if let imagePath = Bundle.main.path(forResource:"Image-1", ofType: "png", inDirectory: "Images") {
+            print("Image URL: \(imagePath)")
+            if let image = UIImage(contentsOfFile: imagePath) {
+                print("Image: \(image)")
+                self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+            }
+            else {
+                print("Can't open image at: \(imagePath).")
+            }
+        }
+        else {
+            print("Image not found.")
+        }
     }
     
     @objc func setTabBarTint(_ message: Any) {

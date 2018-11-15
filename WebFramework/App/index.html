@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html ng-app="myApp">
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Test Page</title>
-  <meta
-  name='viewport'
-  content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
-  />
-  <style>
-      * {
-          
-          -webkit-touch-callout: none; /* iOS Safari */
-          -webkit-user-select: none; /* Safari */
-          -khtml-user-select: none; /* Konqueror HTML */
-          -moz-user-select: none; /* Firefox */
-          -ms-user-select: none; /* Internet Explorer/Edge */
-          user-select: none; /* Non-prefixed version, currently
-                              supported by Chrome and Opera */
-      }
-  .button{
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Test Page</title>
+    <meta
+    name='viewport'
+    content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
+    />
+    <style>
+    * {
+
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                      supported by Chrome and Opera */
+    }
+    .button{
       width: 85%;
       text-align: center;
       padding: 10px;
@@ -34,8 +34,8 @@
       background-color: #ff2d55;
       -webkit-tap-highlight-color:  rgba(0, 118, 216, 0);
       
-  }
-  .input {
+    }
+    .input {
       display: block;
       width: 85%;
       text-align: center;
@@ -55,73 +55,76 @@
       
       -webkit-touch-callout: auto;
       -webkit-user-select: auto;
-  }
-  body {
+    }
+    body {
       margin-top: 20px;
       font-family: Arial;
-  }
-  </style>
-  
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    }
+    </style>
 
-  <script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+
+    <script>
   
     function printHelloWorld() {
       window.webkit.messageHandlers.test.postMessage("Hello, world!");
     }
-  
-  function pushToNext(path) {
+
+    function pushToNext(path) {
       window.webkit.messageHandlers.pushToNext.postMessage(path);
-  }
-  function presentView() {
+    }
+    function presentView() {
       window.webkit.messageHandlers.presentView.postMessage("Hello, world!");
-  }
-  function dismissView() {
+    }
+    function dismissView() {
       window.webkit.messageHandlers.dismissView.postMessage("Hello, world!");
-  }
-  
-  function setTitle() {
+    }
+
+    function setTitle() {
       var title = document.getElementById("title");
       window.webkit.messageHandlers.setNavTitle.postMessage(title.value);
-  }
-  
-  function setTitleFont() {
-      var title = document.getElementById("title");
-      window.webkit.messageHandlers.setTitleFont.postMessage(title.value);
-  }
-  
-  function setNavBarBackground() {
-      window.webkit.messageHandlers.setNavBarBackground.postMessage("Hello");
-  }
-  function setTabBarTint() {
+    }
+
+    function setTitleFont() {
+      var font = {
+          fontName: "Oswald-Light",
+          fontSize: 20.0
+      }
+      window.webkit.messageHandlers.setTitleFont.postMessage(font);
+    }
+
+    function setNavBarBackground() {
+      window.webkit.messageHandlers.setNavBarBackground.postMessage("Image-1.png");
+    }
+    function setTabBarTint() {
       window.webkit.messageHandlers.setTabBarTint.postMessage("#ff2d55");
-  }
-  function toggleNavBar() {
+    }
+    function toggleNavBar() {
       window.webkit.messageHandlers.toggleNavBar.postMessage("Hello, world!");
-  }
-  function toggleScrolling() {
+    }
+    function toggleScrolling() {
       window.webkit.messageHandlers.toggleScrolling.postMessage("Hello, world!");
-  }
-  function toggleNavBarButton() {
+    }
+    function toggleNavBarButton() {
       window.webkit.messageHandlers.toggleNavBarButton.postMessage("Hello, world!");
-  }
-  window.onload = setTabBarTint("#ff2d55");
-  
-  var app = angular.module("myApp", ["ngRoute"]);
-  
-  app.config(function($routeProvider) {
-             $routeProvider
-             .when("/", {
-                   template : "<h1>Main</h1><p>Click on the links to change this content</p>"
-                   })
-             .when("/banana", {
-                   template : "<h1>Banana</h1><p>Bananas contain around 75% water.</p>"
-                   })
-             .when("/tomato", {
-                   template : "<h1>Tomato</h1><p>Tomatoes contain around 95% water.</p>"
-                   });
-             });
+    }
+    window.onload = setTabBarTint("#ff2d55");
+
+    var app = angular.module("myApp", ["ngRoute"]);
+
+    app.config(function($routeProvider) {
+        $routeProvider
+        .when("/", {
+           template : "<h1>Main</h1><p>Click on the links to change this content</p>"
+           })
+        .when("/banana", {
+           template : "<h1>Banana</h1><p>Bananas contain around 75% water.</p>"
+           })
+        .when("/tomato", {
+           template : "<h1>Tomato</h1><p>Tomatoes contain around 95% water.</p>"
+           });
+        });
              
              
   </script>
