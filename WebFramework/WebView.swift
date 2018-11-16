@@ -32,7 +32,8 @@ class WebView: NSObject {
         userContentController.add(self, name: "dismissView")
         userContentController.add(self, name: "presentView")
         userContentController.add(self, name: "setNavTitle")
-        userContentController.add(self, name: "toggleNavBar")
+        userContentController.add(self, name: "showNavBar")
+        userContentController.add(self, name: "hideNavBar")
         userContentController.add(self, name: "setNavBarBackground")
         userContentController.add(self, name: "setTabBarTint")
         userContentController.add(self, name: "setTitleFont")
@@ -40,6 +41,7 @@ class WebView: NSObject {
         
         wkWebView.scrollView.isScrollEnabled = false
         wkWebView.navigationDelegate = self
+        
         print("Loading: index.html#!\(path)")
         let url = Bundle.main.url(forResource: "index", withExtension: "html")!
         wkWebView.loadFileURL(url, allowingReadAccessTo: url)
@@ -53,6 +55,12 @@ protocol UIViewControllerDelegate {
     func presentViewController(path: String?)
     func dismissViewController()
     func setNavigationBar(title: String?)
+    func setScrolling(enabled: Bool)
+    func setTabBarTint(color: UIColor)
+    func setTitleFont(with: [String: Any]?)
+    func showNavBar()
+    func hideNavBar()
+    func setNavBarBackground(image: String)
     
     
     func doneLoading(withWebView: WKWebView)
@@ -83,21 +91,25 @@ extension WebView: WKScriptMessageHandler {
         case "setNavTitle":
             delegate?.setNavigationBar(title: message.body as? String)
             break
-//        case "toggleNavBar":
-//            toggleNavBar(message.body)
-//            break
-//        case "setNavBarBackground":
-//            setNavBarBackground(message.body)
-//            break
-//        case "setTabBarTint":
-//            setTabBarTint(message.body)
-//            break
-//        case "setTitleFont":
-//            setTitleFont(message.body)
-//            break
-//        case "toggleScrolling":
-//            toggleScrolling(message.body)
-//            break
+        case "showNavBar":
+            delegate?.showNavBar()
+            break
+        case "hideNavBar":
+            delegate?.hideNavBar()
+            break
+        case "setNavBarBackground":
+            delegate?.setNavBarBackground(image: message.body as? String ?? "canada-150-cover")
+            break
+        case "setTabBarTint":
+            let color = UIColor.color(from: message.body as? String ?? "#ff2d55")
+            delegate?.setTabBarTint(color: color)
+            break
+        case "setTitleFont":
+            delegate?.setTitleFont(with: message.body as? [String: Any])
+            break
+        case "toggleScrolling":
+            delegate?.setScrolling(enabled: message.body as? Bool ?? true)
+            break
         default:
             print("Default Caught.")
 //            delegate?.pushViewController(path: message.body as? String)

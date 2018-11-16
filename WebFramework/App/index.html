@@ -67,6 +67,14 @@
 
     <script>
   
+  
+  function initialize() {
+      setTabBarTint("#ff2d55");
+      setTitle("WebFramework");
+      setTitleFont();
+      setScrolling(true);
+  }
+    
     function printHelloWorld() {
       window.webkit.messageHandlers.test.postMessage("Hello, world!");
     }
@@ -74,75 +82,84 @@
     function pushToNext(path) {
       window.webkit.messageHandlers.pushToNext.postMessage(path);
     }
-    function presentView() {
-      window.webkit.messageHandlers.presentView.postMessage("Hello, world!");
+    function presentView(path) {
+      window.webkit.messageHandlers.presentView.postMessage(path);
     }
     function dismissView() {
       window.webkit.messageHandlers.dismissView.postMessage("Hello, world!");
     }
-
-    function setTitle() {
-      var title = document.getElementById("title");
-      window.webkit.messageHandlers.setNavTitle.postMessage(title.value);
+    
+    function setTitle(title) {
+        if (!title) {
+            title = document.getElementById("title").value
+        }
+      window.webkit.messageHandlers.setNavTitle.postMessage(title);
     }
 
     function setTitleFont() {
       var font = {
           fontName: "Oswald-Light",
-          fontSize: 20.0
+          fontSize: 20.0,
+          fontColor: "#ff2d55"
       }
       window.webkit.messageHandlers.setTitleFont.postMessage(font);
     }
 
     function setNavBarBackground() {
-        window.open("http://google.com", "_blank");
-      window.webkit.messageHandlers.setNavBarBackground.postMessage("Image-1.png");
+      window.webkit.messageHandlers.setNavBarBackground.postMessage(true);
     }
     function setTabBarTint() {
       window.webkit.messageHandlers.setTabBarTint.postMessage("#ff2d55");
     }
-    function toggleNavBar() {
-      window.webkit.messageHandlers.toggleNavBar.postMessage("Hello, world!");
+    function showNavBar() {
+        window.webkit.messageHandlers.showNavBar.postMessage("Hello, world!");
     }
-    function toggleScrolling() {
-      window.webkit.messageHandlers.toggleScrolling.postMessage("Hello, world!");
+    function hideNavBar() {
+        window.webkit.messageHandlers.hideNavBar.postMessage("Hello, world!");
+    }
+    function setScrolling(scrolling) {
+      window.webkit.messageHandlers.toggleScrolling.postMessage(scrolling);
     }
     function toggleNavBarButton() {
       window.webkit.messageHandlers.toggleNavBarButton.postMessage("Hello, world!");
     }
-    window.onload = setTabBarTint("#ff2d55");
+    window.onload = initialize();
 
     var app = angular.module("myApp", ["ngRoute"]);
 
     app.config(function($routeProvider) {
         $routeProvider
         .when("/", {
-           template : "<h1>Main</h1><p>Click on the links to change this content</p>"
+           template : "<h3>Main</h3><p>Click on the links to change this content</p>"
            })
         .when("/banana", {
-           template : "<h1>Banana</h1><p>Bananas contain around 75% water.</p>"
+           template : "<h3>Banana</h3><p>Bananas contain around 75% water.</p>"
            })
         .when("/tomato", {
-           template : "<h1>Tomato</h1><p>Tomatoes contain around 95% water.</p>"
-           });
-        });
+             template : "<h3>Tomato</h3><p>Tomatoes contain around 95% water.</p>"
+         })
+        .when("/nav", {
+             template : "<p>Navigation settings.</p>"
+         })
+         });
              
              
   </script>
 </head>
 <body>
-    <h1>Hello {{yourName}}!</h1>
-    <a href="https://google.com" target="_blank"/>Google</a>
-    <hr>
+    <a href="#!banana" class="button">Banana</a>
+    <a href="#!tomato" class="button">Tomato</a>
     <div ng-view></div>
-    <div onclick="pushToNext()" class="button">Push View Controller</div>
-    <div onclick="presentView('/banana')" class="button">Present View Modally</div>
+    <div onclick="pushToNext('banana')" class="button">Push View Controller</div>
+    <div onclick="presentView('tomato')" class="button">Present View Modally</div>
     <div onclick="dismissView()" class="button">Dismiss View</div>
     <div onclick="setNavBarBackground()" class="button">Change Navbar Background</div>
     <div onclick="toggleNavBarButton()" class="button">Toggle Navbar Button</div>
     <div onclick="setTabBarTint()" class="button">Change Tabbar Tint</div>
-    <div onclick="toggleNavBar()" class="button">Toggle Nav Bar</div>
-    <div onclick="toggleScrolling()" class="button">Toggle Scrolling</div>
+    <div onclick="hideNavBar()" class="button">Hide Nav Bar</div>
+    <div onclick="showNavBar()" class="button">Show Nav Bar</div>
+    <div onclick="setScrolling(true)" class="button">Enable Scrolling</div>
+    <div onclick="setScrolling(false)" class="button">Disable Scrolling</div>
     <div onclick="setTitleFont()" class="button">Set Title Font</div>
   
     <br /><br />

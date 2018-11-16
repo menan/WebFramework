@@ -30,6 +30,7 @@
 		68F08545219BD99600254498 /* Oswald-Extra-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68F08536219BD99500254498 /* Oswald-Extra-LightItalic.ttf */; };
 		68F08546219BD99600254498 /* Oswald-Demi-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68F08537219BD99600254498 /* Oswald-Demi-BoldItalic.ttf */; };
 		68F08547219BD99600254498 /* Oswald-DemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68F08538219BD99600254498 /* Oswald-DemiBold.ttf */; };
+		FE487C85219F67F800553832 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE487C84219F67F800553832 /* Extensions.swift */; };
 		FED7FD02219A0062002E9B17 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7FD01219A0062002E9B17 /* TabBarViewController.swift */; };
 		FED7FD24219CD08C002E9B17 /* Image-1.png in Resources */ = {isa = PBXBuildFile; fileRef = FED7FD23219CD08C002E9B17 /* Image-1.png */; };
 /* End PBXBuildFile section */
@@ -81,6 +82,7 @@
 		68F08536219BD99500254498 /* Oswald-Extra-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Extra-LightItalic.ttf"; sourceTree = "<group>"; };
 		68F08537219BD99600254498 /* Oswald-Demi-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Demi-BoldItalic.ttf"; sourceTree = "<group>"; };
 		68F08538219BD99600254498 /* Oswald-DemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-DemiBold.ttf"; sourceTree = "<group>"; };
+		FE487C84219F67F800553832 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		FED7FD01219A0062002E9B17 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		FED7FD04219A135C002E9B17 /* SideMenu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SideMenu.framework; path = Carthage/Build/iOS/SideMenu.framework; sourceTree = "<group>"; };
 		FED7FD1B219A359A002E9B17 /* SideMenuController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SideMenuController.framework; path = Carthage/Build/iOS/SideMenuController.framework; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				685F70122199229700909B9D /* WebViewController.swift */,
 				FED7FD01219A0062002E9B17 /* TabBarViewController.swift */,
 				68F08527219BB15500254498 /* WebView.swift */,
+				FE487C84219F67F800553832 /* Extensions.swift */,
 			);
 			path = WebFramework;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE487C85219F67F800553832 /* Extensions.swift in Sources */,
 				685F6FE3219921B900909B9D /* AppDelegate.swift in Sources */,
 				68F08528219BB15500254498 /* WebView.swift in Sources */,
 				FED7FD02219A0062002E9B17 /* TabBarViewController.swift in Sources */,

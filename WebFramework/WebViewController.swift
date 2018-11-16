@@ -11,16 +11,15 @@ import WebKit
 
 class WebViewController: UIViewController {
     
-    var path = ""
-    
-    let webView = WebView.shared.wkWebView
+    var path = "#/!"
     
     init() {
         super.init(nibName: nil, bundle: nil)
     }
     
     init(path: String?) {
-        self.path = path ?? ""
+        
+        self.path = path == nil ? "#/!" : "#!\(path!)"
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -33,7 +32,17 @@ class WebViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         WebView.shared.delegate = self
         for subView in view.subviews { subView.removeFromSuperview() }
-        view.addSubview(self.webView)
+        view.addSubview(WebView.shared.wkWebView)
+        
+        if WebView.shared.wkWebView.isLoading { return }
+        
+        
+        
+        
+        WebView.shared.wkWebView.evaluateJavaScript("window.location = \"\(path)\"") {(value, err) in
+            print("Javascript evaluated ")
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -65,6 +74,12 @@ class WebViewController: UIViewController {
 
 
 extension WebViewController: UIViewControllerDelegate {
+    func setNavBarBackground(image: String) {
+        if let image = UIImage(named: image) {
+            self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+        }
+    }
+    
     func pushViewController(path: String?) {
         let viewController = WebViewController(path: path)
         self.navigationController?.pushViewController(viewController, animated: true)
@@ -92,103 +107,46 @@ extension WebViewController: UIViewControllerDelegate {
     }
     
     func doneLoading(withWebView: WKWebView) {
-//        self.view = withWebView
+        print("WebView done navigation")
+        
+    }
+    
+    func setScrolling(enabled: Bool) {
+        WebView.shared.wkWebView.scrollView.isScrollEnabled = enabled
+    }
+    
+    @objc func setTabBarTint(color: UIColor) {
+        self.tabBarController?.tabBar.tintColor = color
     }
     
     
-//    @objc func pushToNext(_ message: Any) {
-//        let viewController = WebViewController(with: self, and: message as? String ?? "")
-//
-//        delegate.navigationController?.pushViewController(viewController, animated: true)
-//    }
-//    @objc func presentView(_ message:  Any) {
-//
-//        let viewController = UINavigationController(rootViewController: WebViewController(with: self))
-//
-//        delegate.present(viewController, animated: true) {
-//            print("Its done.")
-//        }
-//    }
-//    @objc func dismissView(_ message:  Any) {
-//        delegate.dismiss(animated: true) {
-//            print("Its done.")
-//        }
-//    }
-//
-//    @objc func setNavTitle(_ message: Any) {
-//
-//        var vc: UIViewController!
-//        if delegate.parent is TabBarViewController {
-//            vc = delegate.parent
-//        }
-//        else {
-//            vc = delegate
-//        }
-//        vc.title = message as? String
-//
-//        //        vc.navigationController?.navigationBar.prefersLargeTitles = true
-//
-//    }
-//
-//    @objc func setTitleFont(_ message: Any) {
-//
-//        if let fontData = message as? [String: Any],
-//            let fontName = fontData["fontName"] as? String,
-//            let fontSize = fontData["fontSize"] as? Float,
-//            let bundle = Bundle(identifier: "com.owl-home-inc.WebFramework"),
-//            let url = bundle.url(forResource:fontName, withExtension: "ttf") {
-//            do {
-//                try UIFont.register(from: url)
-//                delegate.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: fontName, size: CGFloat(fontSize))!]
-//            } catch {
-//                print(error)
-//            }
-//        }
-//
-//    }
-//
-//    @objc func setTitleColor(_ message: Any) {
-//        if let color = message as? String {
-//            delegate.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: hexStringToUIColor(hex: color)]
-//        }
-//    }
-//
-//
-//    @objc func toggleNavBar(_ message: Any) {
-//        guard let navController = delegate.navigationController else { return }
-//
-//        if navController.isNavigationBarHidden {
-//            navController.setNavigationBarHidden(false, animated: true)
-//        }
-//        else {
-//            navController.setNavigationBarHidden(true, animated: true)
-//        }
-//    }
-//
-//
-//    @objc func toggleScrolling(_ message: Any) {
-//        wkWebView.scrollView.isScrollEnabled = !wkWebView.scrollView.isScrollEnabled
-//    }
-//
-//    @objc func toggleSidebar(_ message: Any) {
-//        //show or hide left bar button item
-//        var vc: UIViewController!
-//        if delegate.parent is TabBarViewController {
-//            vc = delegate.parent
-//        }
-//        else {
-//            vc = delegate
-//        }
-//
-//        if vc.navigationItem.leftBarButtonItem == nil {
-//            let menu = UIBarButtonItem(image: UIImage(named: "menu-thin"), style: .plain, target: self, action: #selector(sidebarToggled))
-//            vc.navigationItem.leftBarButtonItem  = menu
-//        }
-//        else {
-//            vc.navigationItem.leftBarButtonItem = nil
-//        }
-//    }
-//
+    func setTitleFont(with data: [String: Any]?) {
+        if let fontData = data,
+            let fontName = fontData["fontName"] as? String,
+            let fontSize = fontData["fontSize"] as? Float,
+            let fontColor = fontData["fontColor"] as? String,
+            let bundle = Bundle(identifier: "com.owl-home-inc.WebFramework"),
+            let url = bundle.url(forResource:fontName, withExtension: "ttf") {
+            do {
+                try UIFont.register(from: url)
+                self.navigationController?.navigationBar.titleTextAttributes = [
+                    NSAttributedString.Key.font: UIFont(name: fontName, size: CGFloat(fontSize))!,
+                    NSAttributedString.Key.foregroundColor: UIColor.color(from: fontColor)
+                ]
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func showNavBar() {
+        guard let navController = self.navigationController else { return }
+        navController.setNavigationBarHidden(false, animated: true)
+    }
+    func hideNavBar() {
+        guard let navController = self.navigationController else { return }
+        navController.setNavigationBarHidden(true, animated: true)
+    }
 //    @objc func setNavBarBackground(_ message: Any) {
 //        //        if let imageName = message as? String {
 //        //            if let image = UIImage(named: "Image-1") {
@@ -232,53 +190,6 @@ extension WebViewController: UIViewControllerDelegate {
 //        }
 //    }
 //
-//    @objc func setTabBarTint(_ message: Any) {
-//        if let color = message as? String {
-//            delegate.tabBarController?.tabBar.tintColor = hexStringToUIColor(hex: color)
-//        }
-//    }
 //
-//    @objc func sidebarToggled(_ message: Any) {
-//
-//
-//    }
-    
-    func hexStringToUIColor (hex:String) -> UIColor {
-        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        
-        if (cString.hasPrefix("#")) {
-            cString.remove(at: cString.startIndex)
-        }
-        
-        if ((cString.count) != 6) {
-            return UIColor.gray
-        }
-        
-        var rgbValue:UInt32 = 0
-        Scanner(string: cString).scanHexInt32(&rgbValue)
-        
-        return UIColor(
-            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-            alpha: CGFloat(1.0)
-        )
-    }
 }
-
-
-public extension UIFont {
-    public static func register(from url: URL) throws {
-        guard let fontDataProvider = CGDataProvider(url: url as CFURL) else {
-            return
-//            throw SVError.internal("Could not create font data provider for \(url).")
-        }
-        guard let font = CGFont(fontDataProvider) else { return }
-        var error: Unmanaged<CFError>?
-        guard CTFontManagerRegisterGraphicsFont(font, &error) else {
-            throw error!.takeUnretainedValue()
-        }
-    }
-}
-
 
