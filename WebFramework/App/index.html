@@ -95,6 +95,7 @@
     }
 
     function setNavBarBackground() {
+        window.open("http://google.com", "_blank");
       window.webkit.messageHandlers.setNavBarBackground.postMessage("Image-1.png");
     }
     function setTabBarTint() {
@@ -131,6 +132,7 @@
 </head>
 <body>
     <h1>Hello {{yourName}}!</h1>
+    <a href="https://google.com" target="_blank"/>Google</a>
     <hr>
     <div ng-view></div>
     <div onclick="pushToNext()" class="button">Push View Controller</div>

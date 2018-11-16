@@ -13,6 +13,10 @@ class WebViewController: UIViewController {
     
     var path = ""
     
+    let webView = WebView.shared.wkWebView
+
+//    var isModal = false
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -23,36 +27,33 @@ class WebViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        print("\(#function)")
         self.view.backgroundColor = UIColor.white
     }
     
-//    override func viewWillLayoutSubviews() {
-//
-//        WebView.shared.delegate = self
-//        self.view = WebView.shared.wkWebView
-//    }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
-        DispatchQueue.main.async {
-            self.view = WebView.shared.wkWebView
-        }
-        
+    override func viewWillAppear(_ animated: Bool) {
+        print("\(#function)")
         WebView.shared.delegate = self
+        
+        for subView in view.subviews { subView.removeFromSuperview() }
+        
+        view.addSubview(self.webView)
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
-        if self.view == nil { return }
+        print("\(#function)")
+//        if modalView { return }
         
-        
-        DispatchQueue.main.async { [unowned self] in
-            if let image = self.screenshot() {
-                let imageView = UIImageView(frame: self.view.frame)
-                imageView.image = image
-                self.view = imageView
-                return
-            }
-            self.view = nil
-        }
+//        DispatchQueue.main.async {
+//            if let image = self.screenshot() {
+//                let imageView = UIImageView(frame: self.view.frame)
+//                imageView.image = image
+//                self.view = imageView
+////                self.webView.removeFromSuperview()
+//                return
+//            }
+//        }
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -80,20 +81,17 @@ extension WebViewController: UIViewControllerDelegate {
         self.navigationController?.pushViewController(viewController, animated: true)
     }
     func presentViewController(path: String?) {
+        print("\(#function)")
         let viewController = WebViewController(path: path)
         self.navigationController?.present(viewController, animated: true, completion: {
-            self.view = nil
-            viewController.view = WebView.shared.wkWebView
+//            WebView.shared.wkWebView.removeFromSuperview()
+//            viewController.view = WebView.shared.wkWebView
             print("its Done")
         })
     }
     func dismissViewController() {
-        let view = UIView(frame: self.view.frame)
-        view.backgroundColor = UIColor.white
-        self.view = view
-        DispatchQueue.main.async {
-            self.dismiss(animated: true)
-        }
+//        modalView = true
+        self.dismiss(animated: true)
         
     }
     
