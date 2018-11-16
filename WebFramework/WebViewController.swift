@@ -14,8 +14,6 @@ class WebViewController: UIViewController {
     var path = ""
     
     let webView = WebView.shared.wkWebView
-
-//    var isModal = false
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -33,27 +31,18 @@ class WebViewController: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        print("\(#function)")
         WebView.shared.delegate = self
-        
         for subView in view.subviews { subView.removeFromSuperview() }
-        
         view.addSubview(self.webView)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        print("\(#function)")
-//        if modalView { return }
-        
-//        DispatchQueue.main.async {
-//            if let image = self.screenshot() {
-//                let imageView = UIImageView(frame: self.view.frame)
-//                imageView.image = image
-//                self.view = imageView
-////                self.webView.removeFromSuperview()
-//                return
-//            }
-//        }
+        if let image = self.screenshot() {
+            let imageView = UIImageView(frame: self.view.frame)
+            imageView.image = image
+            self.view.addSubview(imageView)
+            return
+        }
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -84,15 +73,11 @@ extension WebViewController: UIViewControllerDelegate {
         print("\(#function)")
         let viewController = WebViewController(path: path)
         self.navigationController?.present(viewController, animated: true, completion: {
-//            WebView.shared.wkWebView.removeFromSuperview()
-//            viewController.view = WebView.shared.wkWebView
             print("its Done")
         })
     }
     func dismissViewController() {
-//        modalView = true
         self.dismiss(animated: true)
-        
     }
     
     func setNavigationBar(title: String?) {
@@ -107,7 +92,7 @@ extension WebViewController: UIViewControllerDelegate {
     }
     
     func doneLoading(withWebView: WKWebView) {
-        self.view = withWebView
+//        self.view = withWebView
     }
     
     
