@@ -26,13 +26,25 @@ class WebViewController: UIViewController {
         self.view.backgroundColor = UIColor.white
     }
     
+//    override func viewWillLayoutSubviews() {
+//
+//        WebView.shared.delegate = self
+//        self.view = WebView.shared.wkWebView
+//    }
+    
     override func viewDidAppear(_ animated: Bool) {
+        
+        DispatchQueue.main.async {
+            self.view = WebView.shared.wkWebView
+        }
+        
         WebView.shared.delegate = self
-        self.view = WebView.shared.wkWebView
     }
     override func viewWillDisappear(_ animated: Bool) {
+        if self.view == nil { return }
+        
+        
         DispatchQueue.main.async { [unowned self] in
-            
             if let image = self.screenshot() {
                 let imageView = UIImageView(frame: self.view.frame)
                 imageView.image = image
@@ -76,9 +88,13 @@ extension WebViewController: UIViewControllerDelegate {
         })
     }
     func dismissViewController() {
-        self.dismiss(animated: true) {
-            print("Its done.")
+        let view = UIView(frame: self.view.frame)
+        view.backgroundColor = UIColor.white
+        self.view = view
+        DispatchQueue.main.async {
+            self.dismiss(animated: true)
         }
+        
     }
     
     func setNavigationBar(title: String?) {
