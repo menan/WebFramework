@@ -130,7 +130,7 @@
     app.config(function($routeProvider) {
         $routeProvider
         .when("/", {
-           template : "<h3>Main</h3><p>Click on the links to change this content</p>"
+           template : "<p>Welcome to WebFramework.</p>"
            })
         .when("/banana", {
            template : "<h3>Banana</h3><p>Bananas contain around 75% water.</p>"
@@ -147,8 +147,6 @@
   </script>
 </head>
 <body>
-    <a href="#!banana" class="button">Banana</a>
-    <a href="#!tomato" class="button">Tomato</a>
     <div ng-view></div>
     <div onclick="pushToNext('banana')" class="button">Push View Controller</div>
     <div onclick="presentView('tomato')" class="button">Present View Modally</div>
