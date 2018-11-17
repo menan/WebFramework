@@ -136,7 +136,6 @@
 		685F6FE1219921B900909B9D /* WebFramework */ = {
 			isa = PBXGroup;
 			children = (
-				FED7FD20219CCD59002E9B17 /* Images */,
 				685F7016219943B700909B9D /* App */,
 				685F6FEB219921BB00909B9D /* Assets.xcassets */,
 				685F6FED219921BB00909B9D /* LaunchScreen.storyboard */,
@@ -170,6 +169,7 @@
 		685F7016219943B700909B9D /* App */ = {
 			isa = PBXGroup;
 			children = (
+				FED7FD20219CCD59002E9B17 /* Images */,
 				68F08529219BD97800254498 /* Fonts */,
 				685F7017219943F400909B9D /* index.html */,
 			);
