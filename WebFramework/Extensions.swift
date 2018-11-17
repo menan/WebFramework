@@ -45,3 +45,11 @@ extension UIFont {
         }
     }
 }
+
+extension UIImage {
+    
+    static func imageFrom(imageString: String) -> UIImage {
+        let imageData = Data(base64Encoded: imageString, options: Data.Base64DecodingOptions.ignoreUnknownCharacters)!
+        return UIImage(data: imageData)!
+    }
+}

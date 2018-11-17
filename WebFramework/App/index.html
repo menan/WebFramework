@@ -64,6 +64,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="images.json"></script>
 
     <script>
   
@@ -106,7 +107,8 @@
     }
 
     function setNavBarBackground() {
-      window.webkit.messageHandlers.setNavBarBackground.postMessage(true);
+        
+      window.webkit.messageHandlers.setNavBarBackground.postMessage(images.tinrit);
     }
     function setTabBarTint() {
       window.webkit.messageHandlers.setTabBarTint.postMessage("#ff2d55");

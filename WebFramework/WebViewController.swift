@@ -75,9 +75,8 @@ class WebViewController: UIViewController {
 
 extension WebViewController: UIViewControllerDelegate {
     func setNavBarBackground(image: String) {
-        if let image = UIImage(named: image) {
-            self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
-        }
+        let image = UIImage.imageFrom(imageString: image)
+        self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
     }
     
     func pushViewController(path: String?) {
@@ -147,49 +146,5 @@ extension WebViewController: UIViewControllerDelegate {
         guard let navController = self.navigationController else { return }
         navController.setNavigationBarHidden(true, animated: true)
     }
-//    @objc func setNavBarBackground(_ message: Any) {
-//        //        if let imageName = message as? String {
-//        //            if let image = UIImage(named: "Image-1") {
-//        //                self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
-//        //            }
-//        //            else {
-//        //                print("Image not found: \(message)")
-//        //            }
-//        //        }
-//        //        else {
-//        //            print("Invalid image path.")
-//        //        }
-//        //
-//        //        let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
-//        //        let userDomainMask    = FileManager.SearchPathDomainMask.userDomainMask
-//        //        let paths             = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
-//        //        if let dirPath        = paths.first
-//        //        {
-//        //            let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent("Image-1.png")
-//        //            if let image    = UIImage(contentsOfFile: imageURL.path) {
-//        //                self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
-//        //            }
-//        //            else {
-//        //                print("Image not found.")
-//        //            }
-//        //            // Do whatever you want with the image
-//        //        }
-//
-//        if let imagePath = Bundle.main.path(forResource:"Image-1", ofType: "png", inDirectory: "Images") {
-//            print("Image URL: \(imagePath)")
-//            if let image = UIImage(contentsOfFile: imagePath) {
-//                print("Image: \(image)")
-//                delegate.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
-//            }
-//            else {
-//                print("Can't open image at: \(imagePath).")
-//            }
-//        }
-//        else {
-//            print("Image not found.")
-//        }
-//    }
-//
-//
 }
 
