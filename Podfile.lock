@@ -1,0 +1,16 @@
+PODS:
+  - Actions (3.0.1)
+
+DEPENDENCIES:
+  - Actions
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Actions
+
+SPEC CHECKSUMS:
+  Actions: 696288b71e88903a69ec8d04123df05ad16125dc
+
+PODFILE CHECKSUM: 458ef17e1dd469f5240654e45e73a741219bb409
+
+COCOAPODS: 1.5.3

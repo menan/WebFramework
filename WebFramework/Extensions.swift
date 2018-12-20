@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIColor {
-    static func color(from hex:String) -> UIColor {
+    static func color(from hex: String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         
         if (cString.hasPrefix("#")) {
@@ -29,6 +29,21 @@ extension UIColor {
             blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
             alpha: CGFloat(1.0)
         )
+    }
+    
+    static func color(withRGBString: String) -> UIColor {
+        
+        var colorString = withRGBString.replacingOccurrences(of: "rgb(", with: "")
+        colorString = colorString.replacingOccurrences(of: ")", with: "")
+        
+        let colorsArray = colorString.split(separator: ",")
+        
+        let red = Int(colorsArray[0]) ?? 0
+        let green = Int(colorsArray[1]) ?? 0
+        let blue = Int(colorsArray[2]) ?? 0
+        let alpha = colorsArray.count == 4 ? Int(colorsArray[0]) ?? 1 : 1
+        
+        return UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: CGFloat(alpha))
     }
 }
 
