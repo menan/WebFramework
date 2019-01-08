@@ -79,6 +79,7 @@ class WebView: NSObject {
                                         let testSwitch = UIButton(frame: testSwtichFrame)
                                         testSwitch.setTitle(innerHTML, for: .normal)
                                         testSwitch.setTitleColor(.white, for: .normal)
+                                        testSwitch.tag = 1000 + i
                                         
                                         self.wkWebView.scrollView.addSubview(testSwitch)
                                         
@@ -155,6 +156,7 @@ class WebView: NSObject {
                                     let testSwitch = UITextField(frame: testSwtichFrame)
                                     
                                     testSwitch.delegate = self
+                                    testSwitch.tag = 2000 + i
                                     
                                     self.wkWebView.scrollView.addSubview(testSwitch)
                                     

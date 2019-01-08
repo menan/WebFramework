@@ -50,6 +50,11 @@ class WebViewController: UIViewController {
             let imageView = UIImageView(frame: self.view.frame)
             imageView.image = image
             self.view.addSubview(imageView)
+            for view in WebView.shared.wkWebView.scrollView.subviews {
+                if view.tag >= 1000 {
+                    view.removeFromSuperview()
+                }
+            }
             return
         }
     }
